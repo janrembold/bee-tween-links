@@ -1,0 +1,246 @@
+---
+import type { Song } from '../data/songs';
+
+interface Props {
+  song: Song;
+}
+
+const { song } = Astro.props;
+---
+
+<style define:vars={{ coverImage: song.coverImage }}>
+  :root {
+    --bg: #0c0a09;
+    --panel: rgba(18, 14, 12, 0.86);
+    --text: #f8f3ed;
+    --muted: #b8ada3;
+    --border: rgba(255, 255, 255, 0.1);
+    --button: #f6f1eb;
+    --button-text: #17120f;
+    --button-hover: #ffffff;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --radius: 22px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 28px 18px;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -40px;
+    z-index: -2;
+    background: linear-gradient(rgba(10, 8, 7, 0.66), rgba(10, 8, 7, 0.84)), url(var(--coverImage)) center / cover
+      no-repeat;
+    filter: blur(34px) saturate(0.95);
+    transform: scale(1.08);
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 20%, rgba(255, 175, 95, 0.08), transparent 45%);
+    pointer-events: none;
+  }
+
+  .page {
+    width: min(100%, 430px);
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .cover-wrap {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.42);
+    background: #19130f;
+  }
+
+  .cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .meta {
+    text-align: center;
+    padding: 20px 8px 14px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.55rem, 6vw, 2rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 720;
+  }
+
+  .artist {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 650;
+  }
+
+  .hint {
+    margin: 12px 0 0;
+    color: #d8cfc7;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .links {
+    display: grid;
+    gap: 11px;
+    margin-top: 8px;
+  }
+
+  .service {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    text-decoration: none;
+    background: var(--button);
+    color: var(--button-text);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-height: 58px;
+    font-weight: 700;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .service:hover {
+    transform: translateY(-1px);
+    background: var(--button-hover);
+    box-shadow: 0 11px 22px rgba(0, 0, 0, 0.24);
+  }
+
+  .service:active {
+    transform: translateY(0);
+  }
+
+  .icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 34px;
+    background: #17120f;
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .service-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    min-width: 0;
+  }
+
+  .service-copy small {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #746b64;
+    margin-bottom: 3px;
+  }
+
+  .service-copy strong {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .arrow {
+    margin-left: auto;
+    color: #746b64;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.48);
+  }
+
+  @media (max-width: 380px) {
+    body {
+      padding: 14px;
+    }
+    .card {
+      padding: 14px;
+    }
+  }
+</style>
+
+<main class="page">
+  <section class="card" aria-label={`Listen to ${song.title}`}>
+    <div class="cover-wrap">
+      <img class="cover" src={song.coverImage} alt={`${song.title} cover artwork`} />
+    </div>
+
+    <div class="meta">
+      <h1>{song.title}</h1>
+      <p class="artist">{song.artist}</p>
+      <p class="hint">Choose your preferred music service.</p>
+    </div>
+
+    <div class="links">
+      <a class="service" href={`/api/track?song=${song.id}&platform=spotify`} target="_blank" rel="noopener" data-platform="spotify">
+        <span class="icon" aria-hidden="true">S</span>
+        <span class="service-copy">
+          <small>Listen on</small>
+          <strong>Spotify</strong>
+        </span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+
+      <a class="service" href={`/api/track?song=${song.id}&platform=apple`} target="_blank" rel="noopener" data-platform="apple">
+        <span class="icon" aria-hidden="true">♪</span>
+        <span class="service-copy">
+          <small>Listen on</small>
+          <strong>Apple Music</strong>
+        </span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="footer">© Bee Tween</div>
+</main>

@@ -1,0 +1,34 @@
+---
+import { songs } from '../../data/songs';
+import SongCard from '../../components/SongCard.astro';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return songs.map((song) => ({
+    params: { id: song.id },
+    props: { song },
+  }));
+}
+
+const { song } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{song.title} — {song.artist}</title>
+    <meta name="description" content={`Listen to ${song.title} by ${song.artist} on Spotify or Apple Music.`} />
+
+    <!-- Social preview metadata -->
+    <meta property="og:title" content={`${song.title} — ${song.artist}`} />
+    <meta property="og:description" content="Listen now on Spotify or Apple Music." />
+    <meta property="og:image" content={song.coverImage} />
+    <meta property="og:type" content="music.song" />
+  </head>
+  <body>
+    <SongCard song={song} />
+  </body>
+</html>

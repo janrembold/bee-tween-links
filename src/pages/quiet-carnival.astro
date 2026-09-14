@@ -1,0 +1,29 @@
+---
+import { getSongById } from '../data/songs';
+import SongCard from '../components/SongCard.astro';
+
+const song = getSongById('quiet-carnival');
+
+if (!song) {
+  return new Response('Song not found', { status: 404 });
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{song.title} — {song.artist}</title>
+    <meta name="description" content={`Listen to ${song.title} by ${song.artist} on Spotify or Apple Music.`} />
+
+    <!-- Social preview metadata -->
+    <meta property="og:title" content={`${song.title} — ${song.artist}`} />
+    <meta property="og:description" content="Listen now on Spotify or Apple Music." />
+    <meta property="og:image" content={song.coverImage} />
+    <meta property="og:type" content="music.song" />
+  </head>
+  <body>
+    <SongCard song={song} />
+  </body>
+</html>
