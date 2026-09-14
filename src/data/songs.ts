@@ -14,7 +14,7 @@ export const songs: Song[] = [
     id: "quiet-carnival",
     title: "The Quiet Carnival",
     artist: "Bee Tween",
-    coverImage: "/cover.png",
+    coverImage: "/cover-quiet-carnival.png",
     links: {
       spotify: "https://open.spotify.com/track/REPLACE_WITH_SPOTIFY_ID",
       appleMusicMusic: "https://music.apple.com/REPLACE_WITH_APPLE_MUSIC_URL",
