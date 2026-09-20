@@ -1,13 +1,13 @@
 ---
-import { songs } from '../data/songs';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bee Tween</title>
+    <meta name="description" content="Bee Tween auf Spotify und Apple Music" />
+    <title>Bee Tween | Spotify & Apple Music</title>
     <style>
       * {
         box-sizing: border-box;
@@ -23,70 +23,158 @@ import { songs } from '../data/songs';
       }
 
       body {
+        position: relative;
         min-height: 100vh;
         display: grid;
         place-items: center;
         padding: 28px 18px;
+        overflow: hidden;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url('/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(12px) brightness(0.48) saturate(0.85);
+        transform: scale(1.08);
+        z-index: 0;
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(12, 10, 9, 0.28);
+        z-index: 0;
       }
 
       .container {
-        width: min(100%, 430px);
+        position: relative;
+        z-index: 1;
+        width: min(100%, 440px);
         text-align: center;
       }
 
-      h1 {
-        font-size: 2rem;
-        margin: 0 0 32px 0;
-        letter-spacing: -0.025em;
-        font-weight: 720;
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 78px;
+        height: 78px;
+        margin-bottom: 18px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
       }
 
-      .songs-list {
+      .brand img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 6vw, 3.2rem);
+        letter-spacing: -0.06em;
+        font-weight: 800;
+      }
+
+      .subtitle {
+        margin: 12px 0 28px;
+        color: #c9beb5;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .links {
         display: flex;
         flex-direction: column;
         gap: 14px;
       }
 
-      .song-link {
-        display: block;
-        padding: 16px;
-        background: rgba(18, 14, 12, 0.86);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
+      .platform-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 18px;
+        border-radius: 16px;
         text-decoration: none;
-        color: #f8f3ed;
-        font-size: 1.1rem;
-        font-weight: 600;
-        transition: all 0.15s ease;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
+        color: #ffffff;
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        transition: transform 0.15s ease, filter 0.15s ease, opacity 0.15s ease;
       }
 
-      .song-link:hover {
-        background: rgba(246, 241, 235, 0.1);
-        transform: translateY(-2px);
-        border-color: rgba(255, 255, 255, 0.2);
+      .platform-link:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.04);
       }
 
-      .song-artist {
-        font-size: 0.85rem;
-        color: #b8ada3;
-        margin-top: 4px;
-        font-weight: 500;
+      .platform-link:active {
+        transform: translateY(0);
+      }
+
+      .spotify {
+        background: #1db954;
+        box-shadow: 0 16px 30px rgba(29, 185, 84, 0.28);
+      }
+
+      .apple {
+        background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .icon {
+        width: 18px;
+        height: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Bee Tween</h1>
-      <div class="songs-list">
-        {songs.map((song) => (
-          <a href={`/${song.id}`} class="song-link">
-            <div>{song.title}</div>
-            <div class="song-artist">{song.artist}</div>
-          </a>
-        ))}
+    <main class="container">
+      <div class="brand">
+        <img src="/avatar.png" alt="Bee Tween avatar" />
       </div>
-    </div>
+      <h1>Bee Tween</h1>
+      <p class="subtitle">Listen and follow on your favorite platform.</p>
+
+      <div class="links">
+        <a
+          href="https://open.spotify.com/intl-de/artist/5xyxwTan1xzQDw3EkpVoDP?si=HPz9vv1SSdaOcMlDMHeQ-g"
+          class="platform-link spotify"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="icon">♪</span>
+          Spotify
+        </a>
+
+        <a
+          href="https://music.apple.com/de/artist/bee-tween/6806633812"
+          class="platform-link apple"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="icon">◉</span>
+          Apple Music
+        </a>
+      </div>
+    </main>
   </body>
 </html>
