@@ -2,6 +2,7 @@
 import { songs } from '../../data/songs';
 import SongCard from '../../components/SongCard.astro';
 import Seo from '../../components/Seo.astro';
+import VercelAnalytics from '../../components/VercelAnalytics.astro';
 
 export const prerender = true;
 
@@ -31,6 +32,7 @@ const { song } = Astro.props;
     <title>{song.title} — {song.artist}</title>
   </head>
   <body>
+    <VercelAnalytics />
     <SongCard song={song} />
   </body>
 </html>
