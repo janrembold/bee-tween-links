@@ -20,6 +20,18 @@ export const songs: Song[] = [
       appleMusicMusic: "https://music.apple.com/REPLACE_WITH_APPLE_MUSIC_URL",
     },
   },
+  {
+    id: "waste-the-day",
+    title: "Waste the Day",
+    artist: "Bee Tween",
+    coverImage: "/waste-the-day.png",
+    links: {
+      spotify:
+        "https://open.spotify.com/intl-de/track/0YoB7MjXGQTiUU2MRZfGZg?si=7661eb9e97f24029",
+      appleMusicMusic:
+        "https://music.apple.com/de/album/waste-the-day/6814280553?i=6814280555",
+    },
+  },
   // Füge neue Songs hier hinzu:
   // {
   //   id: 'next-song',

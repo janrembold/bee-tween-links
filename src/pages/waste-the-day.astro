@@ -1,0 +1,33 @@
+---
+import { getSongById } from '../data/songs';
+import SongCard from '../components/SongCard.astro';
+import Seo from '../components/Seo.astro';
+import VercelAnalytics from '../components/VercelAnalytics.astro';
+
+const song = getSongById('waste-the-day');
+
+if (!song) {
+  return new Response('Song not found', { status: 404 });
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo
+      title={`${song.title} — ${song.artist}`}
+      description={`Listen to ${song.title} by ${song.artist} on Spotify or Apple Music.`}
+      url={`/waste-the-day`}
+      image={song.coverImage}
+      type="music.song"
+      locale="en_US"
+    />
+    <title>{song.title} — {song.artist}</title>
+  </head>
+  <body>
+    <VercelAnalytics />
+    <SongCard song={song} />
+  </body>
+</html>
